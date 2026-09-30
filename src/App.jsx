@@ -68,7 +68,7 @@ function Chip({ tone, style }) {
 }
 
 export default function App() {
-  const [theme, setTheme] = useState("dark");
+  const [theme, setTheme] = useState("light");
   const [networkStatus, setNetworkStatus] = useState("online");
   const [selectedWard, setSelectedWard] = useState(WARDS[0]);
   const [reasoningOpen, setReasoningOpen] = useState(false);
@@ -128,13 +128,14 @@ export default function App() {
     >
       {/* Top Header */}
       <div
+        className="top-header"
         style={{
           display: "flex", alignItems: "center", justifyContent: "space-between",
           padding: "8px 16px", borderBottom: "1px solid var(--border)", background: "var(--bg-header)",
           flexWrap: "nowrap", gap: 10, width: "100%", height: 48, flexShrink: 0,
         }}
       >
-        <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
+        <div className="brand-block" style={{ display: "flex", alignItems: "center", gap: 10 }}>
           <div
             style={{
               width: 30, height: 30, borderRadius: 6, background: "var(--bg-card)",
@@ -144,7 +145,7 @@ export default function App() {
           >
             <Mountain size={17} />
           </div>
-          <div>
+          <div className="brand-copy">
             <div className="cmd-font" style={{ fontSize: 15, fontWeight: 700, lineHeight: 1.1, letterSpacing: "-0.2px" }}>
               GeoHydra&#8209;Edge
             </div>
@@ -154,7 +155,7 @@ export default function App() {
           </div>
         </div>
 
-        <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
+        <div className="header-controls" style={{ display: "flex", alignItems: "center", gap: 8 }}>
           <div className="mono" style={{ fontSize: 11, color: "var(--text-muted)", background: "var(--bg-card)", padding: "4px 8px", borderRadius: 6, border: "1px solid var(--border)" }}>
             {new Date(now).toLocaleTimeString("en-IN", { hour: "2-digit", minute: "2-digit", second: "2-digit" })}
           </div>
@@ -203,7 +204,7 @@ export default function App() {
       {fieldView ? (
         <FieldView ward={critical} eta={liveEta} checklist={checklist} setChecklist={setChecklist} />
       ) : (
-        <div style={{ flex: 1, display: "flex", flexDirection: "column", width: "100%", minHeight: 0, overflow: "hidden" }}>
+        <div className="command-content" style={{ flex: 1, display: "flex", flexDirection: "column", width: "100%", minHeight: 0, overflow: "hidden" }}>
           {/* Command Band (Enlarged Warning Banner) */}
           <div style={{ padding: "10px 16px 0", flexShrink: 0 }}>
             <div
@@ -260,10 +261,10 @@ export default function App() {
           </div>
 
           {/* Main 3-Column 100vh Non-Scrollable Grid (Expanded Columns & Controls) */}
-          <div style={{ display: "grid", gridTemplateColumns: "360px 1fr 380px", gap: 16, padding: "12px 16px", flex: 1, width: "100%", minHeight: 0, overflow: "hidden" }}>
+          <div className="dashboard-grid" style={{ display: "grid", gridTemplateColumns: "360px 1fr 380px", gap: 16, padding: "12px 16px", flex: 1, width: "100%", minHeight: 0, overflow: "hidden" }}>
             {/* Left: Wards & Committee */}
-            <div style={{ display: "flex", flexDirection: "column", gap: 12, minHeight: 0 }}>
-              <div style={{ display: "flex", flexDirection: "column", flex: 1, minHeight: 0 }}>
+            <div className="dashboard-left" style={{ display: "flex", flexDirection: "column", gap: 12, minHeight: 0 }}>
+              <div className="ward-list-section" style={{ display: "flex", flexDirection: "column", flex: 1, minHeight: 0 }}>
                 <SectionLabel style={{ marginBottom: 4 }}>Wards &amp; villages</SectionLabel>
                 <div style={{ border: "1px solid var(--border)", borderRadius: 8, overflow: "hidden", background: "var(--bg-panel)", flex: 1, display: "flex", flexDirection: "column" }}>
                   {WARDS.map((w) => (
@@ -301,7 +302,21 @@ export default function App() {
             </div>
 
             {/* Center: Expanded Square Map & Detailed Metrics */}
-            <div style={{ display: "flex", flexDirection: "column", minHeight: 0, gap: 10, alignItems: "stretch" }}>
+            <div className="dashboard-center" style={{ display: "flex", flexDirection: "column", minHeight: 0, gap: 10, alignItems: "stretch" }}>
+              <div className="mobile-ward-select">
+                <SectionLabel style={{ marginBottom: 4 }}>Ward &amp; village</SectionLabel>
+                <select
+                  value={selectedWard.id}
+                  onChange={(e) => setSelectedWard(WARDS.find((w) => w.id === e.target.value))}
+                  aria-label="Select ward or village"
+                >
+                  {WARDS.map((w) => (
+                    <option key={w.id} value={w.id}>
+                      {w.name} (Risk: {w.risk.toUpperCase()})
+                    </option>
+                  ))}
+                </select>
+              </div>
               <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 2 }}>
                 <SectionLabel style={{ margin: 0 }}>Risk map &middot; Mandi sub-basin AOI</SectionLabel>
                 <div style={{ display: "flex", gap: 6, alignItems: "center" }}>
@@ -346,7 +361,7 @@ export default function App() {
 
               {/* Map Canvas Container */}
               <div style={{ display: "flex", justifyContent: "center", flexShrink: 0 }}>
-                <div style={{ border: "1px solid var(--border)", borderRadius: 10, background: "var(--bg-panel)", padding: 6, position: "relative", overflow: "hidden", height: 420, width: "100%", maxWidth: "100%", aspectRatio: "4 / 3", boxShadow: "0 4px 16px rgba(0,0,0,0.06)" }}>
+                <div className="map-canvas" style={{ border: "1px solid var(--border)", borderRadius: 10, background: "var(--bg-panel)", padding: 6, position: "relative", overflow: "hidden", height: 420, width: "100%", maxWidth: "100%", aspectRatio: "4 / 3", boxShadow: "0 4px 16px rgba(0,0,0,0.06)" }}>
                 {mapMode === "satellite" ? (
                   <div style={{ position: "relative", width: "100%", height: "100%", borderRadius: 6, overflow: "hidden", border: "1px solid var(--border-strong)" }}>
                     <img
@@ -528,7 +543,7 @@ export default function App() {
             </div>
 
             {/* Right: Multi-source feed, Nodes, Dissemination, Trust */}
-            <div style={{ display: "flex", flexDirection: "column", gap: 12, minHeight: 0 }}>
+            <div className="dashboard-right" style={{ display: "flex", flexDirection: "column", gap: 12, minHeight: 0 }}>
               <div>
                 <SectionLabel style={{ marginBottom: 4 }}>Multi-source telemetry</SectionLabel>
                 <div style={{ border: "1px solid var(--border)", borderRadius: 8, padding: 10, background: "var(--bg-panel)" }}>
@@ -603,6 +618,7 @@ export default function App() {
       {/* FULLSCREEN MAP OVERLAY MODAL */}
       {isMapFullscreen && (
         <div
+          className="fullscreen-overlay"
           style={{
             position: "fixed",
             top: 0,
@@ -619,6 +635,7 @@ export default function App() {
         >
           {/* Modal Header */}
           <div
+            className="fullscreen-header"
             style={{
               display: "flex",
               alignItems: "center",
@@ -632,7 +649,7 @@ export default function App() {
               flexShrink: 0,
             }}
           >
-            <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
+            <div className="fullscreen-title" style={{ display: "flex", alignItems: "center", gap: 10 }}>
               <Mountain size={18} color="var(--cat-online)" />
               <div>
                 <div className="cmd-font" style={{ fontSize: 15, fontWeight: 700 }}>
@@ -644,7 +661,7 @@ export default function App() {
               </div>
             </div>
 
-            <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
+            <div className="fullscreen-controls" style={{ display: "flex", alignItems: "center", gap: 10 }}>
               <div style={{ display: "flex", gap: 4, alignItems: "center" }}>
                 <span className="mono" style={{ fontSize: 11, color: "var(--text-muted)" }}>Ward:</span>
                 <select
@@ -696,6 +713,7 @@ export default function App() {
 
               <button
                 className="ghd-btn"
+                data-fullscreen-exit="true"
                 onClick={() => setIsMapFullscreen(false)}
                 style={{
                   borderRadius: 6, padding: "5px 10px", fontSize: 11, fontWeight: 600,
@@ -710,6 +728,7 @@ export default function App() {
 
           {/* Large Map Display Viewport */}
           <div
+            className="fullscreen-map"
             style={{
               flex: 1,
               position: "relative",

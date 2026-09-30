@@ -125,6 +125,20 @@ html, body, #root {
   outline-offset: 2px;
 }
 
+.mobile-ward-select {
+  display: none;
+}
+
+.mobile-ward-select select {
+  width: 100%;
+  padding: 9px 10px;
+  border: 1px solid var(--border-strong);
+  border-radius: 6px;
+  background: var(--bg-card);
+  color: var(--text-primary);
+  font: 500 12px 'IBM Plex Mono', monospace;
+}
+
 .ward-row {
   cursor: pointer;
   transition: background 0.12s ease;
@@ -186,4 +200,193 @@ html, body, #root {
 }
 ::-webkit-scrollbar-thumb:hover {
   background: var(--text-muted);
+}
+
+@media (max-width: 900px) {
+  html, body, #root {
+    height: auto !important;
+    min-height: 100vh;
+    max-height: none !important;
+    overflow-x: hidden;
+    overflow-y: auto;
+  }
+
+  #root > div {
+    min-height: 100vh;
+    height: auto !important;
+    max-height: none !important;
+    overflow: visible !important;
+  }
+
+  #root {
+    min-height: 100vh;
+    overflow: visible !important;
+  }
+
+  .command-content {
+    flex: none !important;
+    min-height: auto !important;
+    overflow: visible !important;
+  }
+
+  .dashboard-grid {
+    display: flex !important;
+    flex-direction: column;
+    gap: 16px !important;
+    padding: 12px !important;
+    min-height: auto !important;
+    overflow: visible !important;
+  }
+
+  .dashboard-left {
+    display: none !important;
+  }
+
+  .dashboard-center,
+  .dashboard-right {
+    min-height: auto !important;
+    overflow: visible;
+  }
+
+  .mobile-ward-select {
+    display: block;
+  }
+
+  .map-canvas {
+    height: auto !important;
+    aspect-ratio: 4 / 3;
+    min-height: 240px;
+    max-height: 360px;
+  }
+}
+
+@media (max-width: 600px) {
+  .top-header {
+    height: auto !important;
+    min-height: 96px;
+    align-items: flex-start !important;
+    flex-wrap: wrap !important;
+    padding: 8px 10px !important;
+    gap: 6px 8px !important;
+  }
+
+  .brand-block {
+    flex: 1 1 100%;
+    min-width: 0;
+    align-items: flex-start !important;
+  }
+
+  .brand-copy {
+    min-width: 0;
+    flex: 1;
+  }
+
+  .brand-copy .cmd-font {
+    font-size: 14px !important;
+    line-height: 1.15 !important;
+    overflow-wrap: anywhere;
+  }
+
+  .brand-copy .mono {
+    line-height: 1.2;
+    white-space: normal;
+  }
+
+  .header-controls {
+    flex: 1 1 100%;
+    min-width: 0;
+    flex-wrap: wrap;
+    gap: 6px !important;
+  }
+
+  .header-controls > div:first-child {
+    flex: 1 1 92px;
+  }
+
+  .header-controls button {
+    padding: 5px 8px !important;
+    white-space: nowrap;
+  }
+
+  .header-controls button:last-child {
+    flex: 1 1 118px;
+  }
+
+  .dashboard-grid {
+    padding: 10px !important;
+  }
+
+  .dashboard-center > div:first-of-type {
+    align-items: flex-start !important;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .dashboard-center > div:first-of-type > div:last-child {
+    width: 100%;
+    justify-content: space-between;
+  }
+
+  .dashboard-center > div:first-of-type > div:last-child > div:first-child {
+    flex: 1;
+  }
+
+  .dashboard-center > div:first-of-type > div:last-child button {
+    white-space: nowrap;
+  }
+
+  .fullscreen-overlay {
+    padding: 8px !important;
+    overflow-y: auto !important;
+  }
+
+  .fullscreen-header {
+    height: auto !important;
+    min-height: 0;
+    align-items: stretch !important;
+    flex-direction: column;
+    gap: 10px;
+    padding: 10px !important;
+  }
+
+  .fullscreen-title {
+    align-items: flex-start !important;
+    width: 100%;
+  }
+
+  .fullscreen-title > div {
+    min-width: 0;
+  }
+
+  .fullscreen-title .cmd-font {
+    font-size: 13px !important;
+    line-height: 1.2;
+  }
+
+  .fullscreen-controls {
+    width: 100%;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    gap: 8px !important;
+  }
+
+  .fullscreen-controls > div:first-child {
+    flex: 1 1 145px;
+  }
+
+  .fullscreen-controls > div:nth-child(2) {
+    flex: 1 1 175px;
+  }
+
+  .fullscreen-controls [data-fullscreen-exit="true"] {
+    flex: 1 0 100%;
+    justify-content: center;
+    min-height: 34px;
+  }
+
+  .fullscreen-map {
+    flex: none !important;
+    height: min(58vh, 500px) !important;
+    min-height: 300px;
+  }
 }
