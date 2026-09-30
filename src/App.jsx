@@ -344,9 +344,9 @@ export default function App() {
                 </div>
               </div>
 
-              {/* Map Canvas Container (EXPANDED SQUARE 1:1 Aspect Ratio) */}
+              {/* Map Canvas Container */}
               <div style={{ display: "flex", justifyContent: "center", flexShrink: 0 }}>
-                <div style={{ border: "1px solid var(--border)", borderRadius: 10, background: "var(--bg-panel)", padding: 6, position: "relative", overflow: "hidden", height: 390, width: 390, aspectRatio: "1 / 1", boxShadow: "0 4px 16px rgba(0,0,0,0.06)" }}>
+                <div style={{ border: "1px solid var(--border)", borderRadius: 10, background: "var(--bg-panel)", padding: 6, position: "relative", overflow: "hidden", height: 420, width: "100%", maxWidth: "100%", aspectRatio: "4 / 3", boxShadow: "0 4px 16px rgba(0,0,0,0.06)" }}>
                 {mapMode === "satellite" ? (
                   <div style={{ position: "relative", width: "100%", height: "100%", borderRadius: 6, overflow: "hidden", border: "1px solid var(--border-strong)" }}>
                     <img
